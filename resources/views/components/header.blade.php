@@ -21,7 +21,7 @@
                 <span class="ml-1 nav-user-name hidden-sm">{{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i> </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href=""><i class="ti-user text-muted mr-2"></i> Profile</a>
+                <a class="dropdown-item" href="{{ route('profile') }}"><i class="ti-user text-muted mr-2"></i> Profile</a>
                 <div class="dropdown-divider mb-0"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ti-power-off text-muted mr-2"></i> Logout</a>
             </div>
