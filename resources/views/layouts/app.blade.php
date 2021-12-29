@@ -165,6 +165,38 @@
                     }
                 })
             }
+
+            function approveMsg(url) {
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Approve it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then(function(result) {
+                    if (result.value) {
+                        location.href = url;
+                    }
+                })
+            }
+
+            function rejectMsg(url) {
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "Don't Worry you can Approve it in Future!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Reject it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then(function(result) {
+                    if (result.value) {
+                        location.href = url;
+                    }
+                })
+            }
         </script>
 
         @yield('js')

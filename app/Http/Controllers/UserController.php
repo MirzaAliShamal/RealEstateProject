@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\RecordHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,6 @@ use DataTables;
 
 
 class UserController extends Controller
-
 {
     public function __construct()
     {
@@ -28,26 +28,27 @@ class UserController extends Controller
             return DataTables::eloquent($query)
                 ->addIndexColumn()
                 ->addColumn('photo', function ($row) {
-                return '<img src="' . asset($row->photo) . '" class="img-fluid thumb-md rounded">';
-            })
+                    return '<img src="' . asset($row->photo) . '" class="img-fluid thumb-md rounded">';
+                })
                 ->editColumn('name', function ($row) {
-                return $row->name;
-            })
+                    return $row->name;
+                })
                 ->editColumn('email', function ($row) {
-                return $row->email;
-            })
+                    return $row->email;
+                })
                 ->editColumn('role', function ($row) {
-                return $row->role;
-            })
+                    return $row->role;
+                })
                 ->addColumn('action', function ($row) {
-                $html = '
-                    <a href="' . route('user.edit', $row->id) . '" class="mr-2"><i class="fas fa-edit text-info font-16"></i></a>
-                    <a href="' . route('user.delete', $row->id) . '" onclick="event.preventDefault(); deleteMsg(\'' . route('user.delete', $row->id) . '\')"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+                    $html = '
+                    <a href="' . route('user.show', $row->id) . '" class="btn btn-success btn-sm">details</a>
+                    <a href="' . route('user.edit', $row->id) . '" class="btn btn-primary btn-sm">edit</a>
+                    <a href="' . route('user.delete', $row->id) . '" class="btn btn-danger btn-sm"' . '" onclick="event.preventDefault(); deleteMsg(\'' . route('user.delete', $row->id) . '\')">delete</a>
 
                     ';
 
-                return $html;
-            })
+                    return $html;
+                })
                 ->rawColumns(['action', 'photo'])
                 ->make(true);
         }
@@ -84,8 +85,7 @@ class UserController extends Controller
                 'role' => 'staff'
             ]);
             $msg = "Record Added Successfully!";
-        }
-        else {
+        } else {
             $user = User::findOrFail($id);
             $user->name = $req->name;
             $user->email = $req->email;
@@ -104,5 +104,41 @@ class UserController extends Controller
         User::find($id)->delete();
 
         return redirect()->back()->with('success', 'Record Delete Successfully!');
+    }
+
+    public function show(Request $req, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($req->ajax()) {
+            $query = RecordHistory::where('user_id', $id);
+            return DataTables::eloquent($query)
+                ->addIndexColumn()
+                ->addColumn('r_no', function ($row) {
+                    return $row->r_no;
+                })
+                ->editColumn('name', function ($row) {
+                    return $row->name;
+                })
+                ->editColumn('father_name', function ($row) {
+                    return $row->father_name;
+                })
+                ->editColumn('balance', function ($row) {
+                    return $row->balance;
+                })
+                ->editColumn('new_nic', function ($row) {
+                    return $row->new_nic;
+                })
+                ->editColumn('old_nic', function ($row) {
+                    return $row->old_nic;
+                })
+                ->editColumn('update_status', function ($row) {
+                    return $row->update_status;
+                })
+
+                ->make(true);
+        }
+
+        return view('user.show', get_defined_vars());
     }
 }

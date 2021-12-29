@@ -16,6 +16,14 @@
         </li>
     @endif
 
+    <li>
+        <a href="{{ route('record-history.list') }}">
+            <i data-feather="user" class="align-self-center icon-sm icon-dual-hori-nav"></i>
+            <span>Record History</span>
+        </a>
+    </li>
+
+
 
 
 </ul><!-- End navigation menu -->

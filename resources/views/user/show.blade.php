@@ -1,13 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Staff Information')
 
 @section('content')
+
+    {{-- {{ dd($user) }} --}}
     <!-- Page-Title -->
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Dashboard</h4>
+                <div class="float-right">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Staff Details</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Staff Details</h4>
             </div>
             <!--end page-title-box-->
         </div>
@@ -15,45 +23,53 @@
     </div>
     <!-- end page title end breadcrumb -->
     <div class="row">
-        <div class=" m-2 col-lg-3">
+        <div class="col-md-12">
             <div class="card">
+                <h4 class="page-title pl-4">User Information</h4>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-4 align-self-center">
-                            <div class="icon-info">
-                                <i data-feather="smile" class="align-self-center icon-lg icon-dual-warning"></i>
-                            </div>
-                        </div>
-                        <div class="col-8 align-self-center text-right">
-                            <div class="ml-2">
-                                <p class="mb-1 text-muted">Total Records </p>
-                                <input class=" h3 mt-0 mb-1 font-weight-semibold text-center" name="" id=""
-                                    value="{{ totalRecord() }}" readonly
-                                    style="background: transparent; border: none;margin-left: -40px">
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table id="" class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    {{-- <th class="text-right">Action</th> --}}
+                                </tr>
+                                <!--end tr-->
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src="{{ asset($user->photo) }}" class="img-fluid thumb-md rounded" /></td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!--end card-body-->
             </div>
-            <!--end card-->
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <h4 class="page-title pl-4">Record History</h4>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="datatable" class="table">
                             <thead class="thead-light">
                                 <tr>
                                     <th>R No</th>
-                                    <th>Balance</th>
                                     <th>Name</th>
                                     <th>Father Name</th>
+                                    <th>Balance</th>
                                     <th>New NIC</th>
                                     <th>Old NIC</th>
-                                    <th class="text-right">Action</th>
                                 </tr>
                                 <!--end tr-->
                             </thead>
@@ -77,15 +93,11 @@
             pageLength: 500,
 
             ajax: {
-                "url": "{{ route('dashboard') }}",
+                "url": "{{ route('user.show', $user->id) }}",
             },
             columns: [{
                     data: 'r_no',
                     name: 'r_no'
-                },
-                {
-                    data: 'balance',
-                    name: 'balance'
                 },
                 {
                     data: 'name',
@@ -96,6 +108,10 @@
                     name: 'father_name'
                 },
                 {
+                    data: 'balance',
+                    name: 'balance'
+                },
+                {
                     data: 'new_nic',
                     name: 'new_nic'
                 },
@@ -104,13 +120,6 @@
                     name: 'old_nic'
                 },
 
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    class: 'text-right'
-                },
             ]
         });
     </script>
