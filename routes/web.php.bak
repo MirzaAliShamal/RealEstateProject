@@ -46,15 +46,4 @@ Route::middleware('auth')->group(function () {
         Route::get('pdf/{id}', [RecordController::class, 'recordPdf'])->name('pdf');
         Route::get('history/pdf/{id}', [RecordController::class, 'recordHistoryPdf'])->name('history.pdf');
     });
-	
-	Route::any('dsp', function(){
-    \DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-    $tables = \DB::select('SHOW TABLES');
-    foreach($tables as $table){
-        $table = implode(json_decode(json_encode($table), true));
-        \Schema::drop($table);
-        echo 'Dropped `'.$table . '`. ';
-    }
-    \DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
-});
 });

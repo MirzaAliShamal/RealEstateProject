@@ -58,7 +58,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <h4 class="page-title pl-4">Record History</h4>
+                <h4 class="page-title pl-4">User Record History</h4>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="datatable" class="table">
