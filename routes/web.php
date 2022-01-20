@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\RecordController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,21 +41,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id?}', 'RecordController@updateRecordHistory')->name('update');
         Route::get('/approve-update/{id?}', 'RecordController@approve')->name('approve');
         Route::get('/reject-update/{id?}', 'RecordController@reject')->name('reject');
+        Route::get('/filter-update', 'RecordController@list')->name('pending.list');
     });
 
     Route::prefix('record')->name('record.')->group(function () {
-        Route::get('pdf/{id}', [RecordController::class, 'recordPdf'])->name('pdf');
-        Route::get('history/pdf/{id}', [RecordController::class, 'recordHistoryPdf'])->name('history.pdf');
+        Route::get('print-page/{id}', [PrintController::class, 'print'])->name('print');
+        Route::get('history/pdf/{id}', [RecordController::class, 'recordHistoryPdf'])->name('history.print');
+
+
     });
-	
-	Route::any('dsp', function(){
-    \DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-    $tables = \DB::select('SHOW TABLES');
-    foreach($tables as $table){
-        $table = implode(json_decode(json_encode($table), true));
-        \Schema::drop($table);
-        echo 'Dropped `'.$table . '`. ';
-    }
-    \DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
-});
-});
+
+    //print
+
+
+}
+)
+;

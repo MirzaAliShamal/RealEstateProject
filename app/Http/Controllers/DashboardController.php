@@ -36,11 +36,20 @@ class DashboardController extends Controller
                     return $row->old_nic;
                 })
                 ->addColumn('action', function ($row) {
-                    $html = '
-                    <a href="' . route('record.show', $row->id) . '" class="btn btn-success btn-sm">details</a>
-                    <a href="' . route('record.edit', $row->id) . '" class="btn btn-primary btn-sm"">edit</a>
-                    ';
-
+                    $html ='';
+                    if(auth()->user()->role=='admin')
+                    {
+                        $html=' <a href="' . route('record.show', $row->id) . '" class="btn btn-success btn-sm" >details</a>
+                        ';
+                    }
+                    if(auth()->user()->role=='staff')
+                    {
+                        $html = '
+                             <a href="' . route('record.edit', $row->id) . '" class="btn btn-primary btn-sm"">edit</a>
+                       ';
+                    }
+                       $html.='<a href="' . route('record.print', $row->id) . '" class="btn btn-success btn-sm" >Print</a>
+                       ';
                     return $html;
                 })
                 ->rawColumns(['action'])

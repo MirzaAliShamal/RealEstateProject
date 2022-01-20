@@ -1,26 +1,117 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Record History </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
     <style>
-        input[type="text"] {
-            font-size: 13px;
-            font-weight: 300;
+        .row1 {
+            display: flex;
+        }
 
+        .column1 {
+            flex: 50%;
+        }
 
+        input {
+            outline: 0;
+            border-width: 0 0 2px;
+            padding: 5px;
         }
 
     </style>
-
 </head>
 
 <body>
-    <div style="">
+    <div class="row1">
+        <div class="column1" style="float: left">
+            <input type="text" value="Null" style="width: 180px"><br>
+            <input type="text" value="Null" style="width: 180px"><br>
+            <input type="text" value="Null" style="width: 180px"><br>
+        </div>
+        <div class="column1" style="float:right; margin-right:100px;">
+            <input type="text" value="Null" style="boder-width:2px 2px 2px ;width: 200px"><br>
+            NIC:<input type="text" value="{{ $data->new_nic }}" style="width: 200px"><br>
+            REG:<input type="text" value="{{ $data->r_no }}" style="width: 200px"><br>
+        </div>
+    </div>
+
+    <div class="row2" style="margin-top: 140px;">
+        <div class="column2" style="float: left">
+            D.O.B :<input type="text" value="{{ $data->birth }}" style="width: 180px"><br>
+
+        </div>
+        <div class="column2" style="float:right; margin-right:100px;">
+            Superannuation : <input type="text" value="Null" style="boder-width:2px 2px 2px ;width: 170px"><br>
+        </div>
+    </div>
+
+    <div class="row3" style="margin-top: 60px;">
+        <div class="column3" style="">
+            Name :<input type="text" value="{{ $data->name. '  '.' S/O '. $data->father_name }}" style="width: 550px"><br>
+        </div>
+    </div>
+
+    <div class="row4" style="margin-top: 20px;">
+        <div class="column4" style="">
+            Designation :<input type="text" value="{{ $data->designation }}" style="width: 400px"><br>
+        </div>
+    </div>
+
+    <div class="row5" style="margin-top: 20px;">
+        <div class="column5" style="float: left">
+           BPS :<input type="text" value="{{ $data->bps }}" style="width: 180px"><br>
+
+        </div>
+        <div class="column5" style="float:right; margin-right:100px;">
+            RS : <input type="text" value="{{ $data->balance }}" style="boder-width:2px 2px 2px ;width: 170px"><br>
+        </div>
+    </div>
+    <div class="row5" style="margin-top:50px;">
+        <div class="column5" style="float: left">
+           House :<input type="text" value="{{ $data->h_no }}" style="width: 180px"><br>
+
+        </div>
+        <div class="column5" style="float:right; margin-right:100px;">
+            Option : <input type="text" value="Null" style="boder-width:2px 2px 2px ;width: 170px"><br>
+        </div>
+    </div>
+
+    <div class="row5" style="margin-top:50px;">
+        <label style="float: left; margin-bottom:10px;">Street:</label>
+        <div class="column5" style="float: left">
+           <input type="text" value="{{ $data->colony .'  '. '  '. $data->city }}" style="boder-width:0 ;width: 170px"><br>
+        </div>
+    </div>
+
+    <div class="row6" style="margin-top:120px;">
+            <h2><strong style=""><center>Remarks</center></strong></h2>
+                  <table border=1 style="width: 70% ; border: 2px solid black; margin-left:100px;">
+                      <tr>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  </table>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+{{-- <div style="">
         <div style="float:left">
             <label for="name" style="font-weight:500">Name</label><br>
             <input type="text" value="{{ $data->name ? $data->name : 'N/A' }}"
@@ -216,7 +307,4 @@
                 {{ $data->comment ? $data->comment : 'N/A' }}
             </textarea>
         </div>
-    </div>
-</body>
-
-</html>
+    </div> --}}

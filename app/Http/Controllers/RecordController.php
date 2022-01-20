@@ -49,7 +49,7 @@ class RecordController extends Controller
                 ->addColumn('action', function ($row) {
                     $html = '';
 
-                  if($row->update_status != 'approved')
+                  if($row->update_status != 'approved' && auth()->user()->role=='admin')
                   {
                       $html.='
                       <a href="' . route('record-history.approve', $row->id) .'"class="btn btn-success btn-sm"'. '" onclick="event.preventDefault(); approveMsg(\'' . route('record-history.approve', $row->id) . '\')">approve</a>
@@ -62,6 +62,8 @@ class RecordController extends Controller
                       <a href="' . route('record-history.edit', $row->id) . '" class="btn btn-primary btn-sm">edit</a>
                       ';
                   }
+                  $html.='<a href="' . route('record.history.print', $row->id) . '" class="btn btn-success btn-sm" >Print</a>
+                       ';
 
                 return $html;
             })
@@ -173,16 +175,11 @@ class RecordController extends Controller
     public function recordHistoryPdf($id)
     {
         $data = RecordHistory::findOrFail($id);
-        $pdf = PDF::loadView('pdf', ['data'=>$data]);
-        return $pdf->download('new.pdf');
+        $pdf = \PDF::loadView('pdf', ['data'=>$data]);
+        $filename = $data->name.'.pdf';
+        return $pdf->download($filename);
     }
 
-    public function recordPdf($id)
-    {
-        $data = Record::findOrFail($id);
-        $pdf = PDF::loadView('pdf', ['data'=>$data]);
-        return $pdf->download('new.pdf');
-    }
 
 
 }
