@@ -39,7 +39,7 @@ class DashboardController extends Controller
                     $html ='';
                     if(auth()->user()->role=='admin')
                     {
-                        $html=' <a href="' . route('record.show', $row->id) . '" class="btn btn-success btn-sm" >details</a>
+                        $html=' <a href="' . route('record.show', $row->id) . '" class="btn btn-primary btn-sm" >details</a>
                         ';
                     }
                     if(auth()->user()->role=='staff')
